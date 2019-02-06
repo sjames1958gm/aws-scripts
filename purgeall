@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+./pxologs.js --env ${1} purge ConfigGet
+./pxologs.js --env ${1} purge ConfigDelete
+./pxologs.js --env ${1} purge ConfigPut
+./pxologs.js --env ${1} purge ConfigPost
+./pxologs.js --env ${1} purge DocumentEvent
+./pxologs.js --env ${1} purge ExamGet
+./pxologs.js --env ${1} purge ExamtakerGet
+./pxologs.js --env ${1} purge FilePost
+./pxologs.js --env ${1} purge JobGet
+./pxologs.js --env ${1} purge JobPost
+./pxologs.js --env ${1} purge QuestionGet
+./pxologs.js --env ${1} purge SessionGet
+./pxologs.js --env ${1} purge StudentGroupGet
+rm ${1}*.log

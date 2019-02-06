@@ -17,6 +17,8 @@ const argv = require('yargs')
 
 const credentials = new AWS.SharedIniFileCredentials({ profile: argv.profile });
 const locale = argv.region == 'us-east-2' ? "Oh" : "Or";
+//console.log(argv.profile);
+//console.log(credentials);
 
 const command = argv._[0];
 const lambdas = argv._.slice(1);
@@ -27,7 +29,7 @@ switch (command) {
       try {
         await getLogs({ lambda, env: argv.env });
       } catch (e) {
-        console.error(e.message);
+        console.error("get error: " + e.message);
       }
     });
     break;
@@ -36,7 +38,7 @@ switch (command) {
       try {
         await purge({ lambda, env: argv.env });
       } catch (e) {
-        console.error(e.message);
+        console.error("purge error: " + e.message);
       }
     });
     break;
@@ -63,11 +65,14 @@ async function getLogs({ lambda, env }) {
       orderBy: 'LastEventTime'
     };
 
+    //console.log(params);
+    //console.log(argv.region);
     const cwl = new AWS.CloudWatchLogs({
       apiVersion: '2014-03-28',
       region: argv.region
     });
 
+    //console.log(cwl);
     cwl.describeLogStreams(params, (err, data) => {
       if (err) {
         reject(err);
