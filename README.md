@@ -1,1 +1,1 @@
-# aws-scripts
+# pxologs.js - dump printx logs from cloudwatch
