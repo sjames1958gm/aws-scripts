@@ -3,7 +3,7 @@ const { spawn, exec } = require('child_process');
 const fs = require('fs');
 const argv = require('yargs')
   .usage(
-    'Usage: $0 --env [env] --profile [profile] --locale [locale] command stream#N [stream#N]'
+    'Usage: $0 --env [env] --profile [profile] command stream#N [stream#N]'
   )
   .command('get', 'Get the N logs from 1 or more printx log groups for printx')
   .command('purge', 'Remove all the logstreams for 1 or more printx log groups')
@@ -60,7 +60,7 @@ async function getLogs({ profile, lambda, env, locale }) {
       lambda = lambda.slice(0, ndx);
     }
 
-    const group = `/aws/lambda/Pxo001${locale}${env}LambdaFunction${lambda}Jar01`;
+    const group = `/aws/lambda/Pxo001${locale}${env}LambdaFunction${lambda}01`;
 
     console.log(` get logs for ${group} count: ${count}`);
 
@@ -84,6 +84,7 @@ async function getLogs({ profile, lambda, env, locale }) {
 
     child.on('close', code => {
       // console.log(`child process exited with code ${code}`);
+      //console.log(chunks);
       let logStreams = JSON.parse(chunks);
       getStreams({ profile, logStreams, group, env, lambda, locale });
       resolve();
